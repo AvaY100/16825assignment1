@@ -23,7 +23,16 @@ def render_textured_cow(
     meshes = pytorch3d.io.load_objs_as_meshes([cow_path]).to(device)
     R_relative = torch.tensor(R_relative).float()
     T_relative = torch.tensor(T_relative).float()
+    # original　
     R = R_relative @ torch.tensor([[1.0, 0, 0], [0, 1, 0], [0, 0, 1]])
+    # # 1
+    # R = R_relative @ torch.tensor([[0, -1.0, 0], [-1.0, 0, 0], [0, 0, 1]])
+    # 2
+    # T_relative=torch.tensor([0, 0, 2])
+    # 3
+    # T_relative=torch.tensor([0.5, -0.5, 0])
+    # 4
+    R = R_relative @ torch.tensor([[0, 0, -1.0], [0, 1, 0], [-1, 0, 0]])
     T = R_relative @ torch.tensor([0.0, 0, 3]) + T_relative
     renderer = get_mesh_renderer(image_size=256)
     cameras = pytorch3d.renderer.FoVPerspectiveCameras(
@@ -38,7 +47,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--cow_path", type=str, default="data/cow.obj")
     parser.add_argument("--image_size", type=int, default=256)
-    parser.add_argument("--output_path", type=str, default="images/textured_cow.jpg")
+    parser.add_argument("--output_path", type=str, default="results/textured_cow1.jpg")
     args = parser.parse_args()
     render_textured_cow(cow_path=args.cow_path, image_size=args.image_size)
     plt.imsave(args.output_path, render_textured_cow())
+
