@@ -25,8 +25,6 @@ def color_cow_front_to_back():
     vertices, faces = load_cow_mesh("data/cow.obj")
     vertices = vertices.unsqueeze(0)  # (N_v, 3) -> (1, N_v, 3)
     faces = faces.unsqueeze(0)  # (N_f, 3) -> (1, N_f, 3)
-
-    
     
     # 获取z坐标的最大值和最小值
     # import pdb; pdb.set_trace()
