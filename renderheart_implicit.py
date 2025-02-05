@@ -62,18 +62,18 @@ def render_heart_mesh(image_size=256, voxel_size=48, scale=1.0, angle=0, device=
     # Set up camera for rotation around Y-axis
     rot_angle = angle * np.pi / 180
     R = torch.tensor([
-        [np.cos(rot_angle), 0, -np.sin(rot_angle)],
-        [0, 1, 0],
-        [np.sin(rot_angle), 0, np.cos(rot_angle)]
+        [np.cos(rot_angle), -np.sin(rot_angle), 0],
+        [np.sin(rot_angle), np.cos(rot_angle), 0],
+        [0, 0, 1]
     ]).unsqueeze(0)
     
     # Position camera to see the heart properly
-    T = torch.tensor([[0, 0.5, 4]])
+    T = torch.tensor([[0, 0.5, 2]])
     cameras = pytorch3d.renderer.FoVPerspectiveCameras(R=R, T=T, device=device)
     
     # Add multiple lights for better visualization
     lights = pytorch3d.renderer.PointLights(
-        location=[[2, 2, -2], [-2, 2, -2], [0, -2, -2]],
+        location=[[2, 2, -1]],
         device=device
     )
     
@@ -82,16 +82,17 @@ def render_heart_mesh(image_size=256, voxel_size=48, scale=1.0, angle=0, device=
     rend = renderer(mesh, cameras=cameras, lights=lights)
     return rend[0, ..., :3].cpu().numpy()
 
-def create_360_gif(output_path="results/heart_implicit.gif", num_frames=60):
+def create_360_gif(output_path="results/heart_implicit.gif", num_frames=24):
     """Creates a 360-degree rotation animation of the heart mesh"""
     frames = []
     for i in range(num_frames):
+        # import pdb; pdb.set_trace()
         angle = i * (360.0 / num_frames)
         image = render_heart_mesh(angle=angle, scale=1.2, voxel_size=48)  # Lower resolution, adjusted scale
         frames.append((image * 255).astype(np.uint8))
     
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    imageio.mimsave(output_path, frames, fps=30)
+    imageio.mimsave(output_path, frames, fps=30, loop=0)
 
 if __name__ == "__main__":
     create_360_gif() 

@@ -24,15 +24,15 @@ def render_textured_cow(
     R_relative = torch.tensor(R_relative).float()
     T_relative = torch.tensor(T_relative).float()
     # original　
-    R = R_relative @ torch.tensor([[1.0, 0, 0], [0, 1, 0], [0, 0, 1]])
+    # R = R_relative @ torch.tensor([[1.0, 0, 0], [0, 1, 0], [0, 0, 1]])
     # # 1
-    # R = R_relative @ torch.tensor([[0, -1.0, 0], [-1.0, 0, 0], [0, 0, 1]])
+    R = R_relative @ torch.tensor([[0, 1.0, 0], [-1.0, 0, 0], [0, 0, 1]])
     # 2
     # T_relative=torch.tensor([0, 0, 2])
     # 3
     # T_relative=torch.tensor([0.5, -0.5, 0])
     # 4
-    R = R_relative @ torch.tensor([[0, 0, -1.0], [0, 1, 0], [-1, 0, 0]])
+    # R = R_relative @ torch.tensor([[0, 0, -1.0], [0, 1, 0], [-1, 0, 0]])
     T = R_relative @ torch.tensor([0.0, 0, 3]) + T_relative
     renderer = get_mesh_renderer(image_size=256)
     cameras = pytorch3d.renderer.FoVPerspectiveCameras(

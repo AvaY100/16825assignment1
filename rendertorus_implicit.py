@@ -32,6 +32,8 @@ def render_torus_mesh(image_size=256, voxel_size=48, R=2.0, r=1.0, angle=0, devi
     del X, Y, Z, voxels
     torch.cuda.empty_cache()  # Clear GPU memory if any
 
+    
+
     # Extract vertices and faces using marching cubes
     vertices, faces = mcubes.marching_cubes(voxels_np, isovalue=0)
     del voxels_np
@@ -62,10 +64,12 @@ def render_torus_mesh(image_size=256, voxel_size=48, R=2.0, r=1.0, angle=0, devi
     # Move camera up slightly and back
     T = torch.tensor([[0, 0.5, 6]])
     cameras = pytorch3d.renderer.FoVPerspectiveCameras(R=R, T=T, device=device)
+
+    # import pdb; pdb.set_trace()
     
     # Add multiple lights for better visualization
     lights = pytorch3d.renderer.PointLights(
-        location=[[2, 2, -2], [-2, 2, -2], [0, -2, -2]],
+        location=[[2, 2, 0]],
         device=device
     )
     
@@ -74,7 +78,7 @@ def render_torus_mesh(image_size=256, voxel_size=48, R=2.0, r=1.0, angle=0, devi
     rend = renderer(mesh, cameras=cameras, lights=lights)
     return rend[0, ..., :3].cpu().numpy()
 
-def create_360_gif(output_path="results/torus_implicit.gif", num_frames=60):
+def create_360_gif(output_path="results/torus_implicit.gif", num_frames=24):
     """Creates a 360-degree rotation animation of the torus mesh"""
     frames = []
     for i in range(num_frames):
@@ -83,7 +87,7 @@ def create_360_gif(output_path="results/torus_implicit.gif", num_frames=60):
         frames.append((image * 255).astype(np.uint8))
     
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    imageio.mimsave(output_path, frames, fps=30)
+    imageio.mimsave(output_path, frames, fps=30, loop=0)
 
 if __name__ == "__main__":
     create_360_gif() 

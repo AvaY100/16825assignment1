@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 1 Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .image-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        img, video {
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0;
+        }
+        .code {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Assignment 1 Report</h1>
+
+    <div class="section">
+        <h2>1.1. 360-degree Renders</h2>
+        <div class="image-container">
+            <img src="data/my_gif.gif" alt="360-degree render">
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>1.2 Re-creating the Dolly Zoom</h2>
+        <div class="image-container">
+            <img src="data/dolly.gif" alt="Dolly zoom effect">
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>2.1 Constructing a Tetrahedron</h2>
+        <div class="image-container">
+            <img src="data/tetrahedron.gif" alt="Tetrahedron">
+            <img src="data/colorful_tetrahedron.gif" alt="Colorful tetrahedron">
+            <p>Vertices: 4</p>
+            <p>Faces: 4</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>2.2 Constructing a Cube</h2>
+        <div class="image-container">
+            <img src="data/cube.gif" alt="Cube">
+            <img src="data/colorful_cube.gif" alt="Colorful cube">
+            <p>Vertices: 8</p>
+            <p>Faces: 12</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>3. Re-texturing a mesh</h2>
+        <div class="image-container">
+            <img src="data/retexture_gradient_cow.gif" alt="Retextured cow">
+        </div>
+        <div class="code">
+            color1 = [1, 0, 0] and color2 = [0, 0, 1]
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>4. Camera Transformations</h2>
+        <p>Camera transformation parameters:</p>
+        <div class="code">
+            # 1<br>
+            R = R_relative @ torch.tensor([[0, 1.0, 0], [-1.0, 0, 0], [0, 0, 1]])<br>
+            # 2<br>
+            T_relative=torch.tensor([0, 0, 2])<br>
+            # 3<br>
+            T_relative=torch.tensor([0.5, -0.5, 0])<br>
+            # 4<br>
+            R = R_relative @ torch.tensor([[0, 0, -1.0], [0, 1, 0], [-1, 0, 0]])
+        </div>
+        <div class="image-container">
+            <img src="data/textured_cow_1.jpg" alt="Textured cow 1">
+            <img src="data/textured_cow_2.jpg" alt="Textured cow 2">
+            <img src="data/textured_cow_3.jpg" alt="Textured cow 3">
+            <img src="data/textured_cow_4.jpg" alt="Textured cow 4">
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>5.1 Rendering Point Clouds from RGB-D Images</h2>
+        <div class="image-container">
+            <img src="data/point_cloud1.gif" alt="Point cloud 1">
+            <img src="data/point_cloud2.gif" alt="Point cloud 2">
+            <img src="data/point_cloud_combined.gif" alt="Combined point cloud">
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>5.2 Parametric Functions</h2>
+        <div class="image-container">
+            <img src="data/torus.gif" alt="Torus">
+            <img src="data/heart.gif" alt="Heart">
+            <p>i forgot to add the loop for those two gifs, please rerfesh to see gif</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>5.3 Implicit Surfaces</h2>
+        <div class="image-container">
+            <img src="data/torus_implicit.gif" alt="Implicit torus">
+            <img src="data/heart_implicit.gif" alt="Implicit heart">
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>6. Do Something Fun</h2>
+        <p>Displacement mapping (bump effect)</p>
+        <p>In this implementation, I created an interesting visual effect using vertex color mapping and displacement mapping on a sphere mesh.</p>
+        <ul style="margin-bottom: 20px;">
+            <li>First, I generated a sphere using PyTorch3D's ico_sphere with subdivision level 3.</li>
+            <li>For the vertex colors, I created a gradient effect by mapping the x-coordinates to red channel, y-coordinates to green channel, and setting a constant blue value of 0.5. This creates the smooth color transition you can see in the original mesh.</li>
+            <li>Then, I implemented a displacement effect using a sinusoidal function that creates a wavy pattern on the surface. The displacement is calculated using the formula: sin(x*10) * cos(y*10) * strength, where strength is set to 0.1. This creates the bumpy, wave-like pattern visible in the displaced mesh.</li>
+        </ul>
+        <div class="image-container">
+            <p>Original:</p>
+            <img src="data/vertex_color_mapping.png" alt="Original mesh">
+            <p>Displacement mapping:</p>
+            <img src="data/displaced_mesh.png" alt="Displaced mesh">
+        </div>
+    </div>
+
+</body>
+</html> 

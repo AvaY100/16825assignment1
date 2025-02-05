@@ -1,0 +1,75 @@
+1.1. 360-degree Renders
+
+display data/my_gif.gif
+
+1.2 Re-creating the Dolly Zoom
+
+display data/dolly.gif
+
+2.1 Constructing a Tetrahedron
+
+display data/tetrahedron.gif
+display data/colorful_tetrahedron.gif
+Also, list how many vertices and (triangle) faces your mesh should have.
+
+2.2 Constructing a Cube 
+
+display data/cube.gif
+display data/colorful_cube.gif
+Also, list how many vertices and (triangle) faces your mesh should have.
+
+3. Re-texturing a mesh 
+
+display data/retexture_gradient_cow.gif
+Point out "color1 = [1, 0, 0] and color2 = [0, 0, 1]"
+
+4. Camera Transformations
+In your report, describe in words what R_relative and T_relative should be doing and include the rendering produced by your choice of R_relative and T_relative.
+Use the following information to answer:
+# # 1
+# R = R_relative @ torch.tensor([[0, 1.0, 0], [-1.0, 0, 0], [0, 0, 1]])
+# 2
+# T_relative=torch.tensor([0, 0, 2])
+# 3
+# T_relative=torch.tensor([0.5, -0.5, 0])
+# 4
+# R = R_relative @ torch.tensor([[0, 0, -1.0], [0, 1, 0], [-1, 0, 0]])
+Renders are:
+display data/textured_cow_1.jpg
+display data/textured_cow_2.jpg
+display data/textured_cow_3.jpg
+display data/textured_cow_4.jpg
+
+5.1 Rendering Point Clouds from RGB-D Images
+Construct 3 different point clouds:
+
+The point cloud corresponding to the first image
+The point cloud corresponding to the second image
+The point cloud formed by the union of the first 2 point clouds.
+Try visualizing each of the point clouds from various camera viewpoints. We suggest starting with cameras initialized 6 units from the origin with equally spaced azimuth values.
+
+Submission: In your submission, include a gif of each of these point clouds mentioned above side-by-side.
+
+display data/point_cloud_1.gif
+display data/point_cloud_2.gif
+display data/point_cloud_combined.gif
+
+5.2 Parametric Functions
+In your writeup, include a 360-degree gif of your torus point cloud, and make sure the hole is visible. You may choose to texture your point cloud however you wish. (10 points)
+Include a 360-degree gif on any new object of your choice. (5 points)
+
+display data/torus.gif
+display data/heart.gif
+
+5.3 Implicit Surfaces
+In your writeup, include a 360-degree gif of your torus mesh, and make sure the hole is visible. (10 points)
+In addition, discuss some of the tradeoffs between rendering as a mesh vs a point cloud. Things to consider might include rendering speed, rendering quality, ease of use, memory usage, etc. (5 points)
+Include a 360-degree gif on any new object of your choice. This object can be different from what you used in 5.2 (5 points)
+display data/torus_implicit.gif
+display data/heart_implicit.gif
+
+6. Do Something Fun
+displacement mapping (bump effect)
+original: data/vertex_color_mapping.png
+displacement mapping: data/displaced_mesh.png
+
